@@ -1,7 +1,7 @@
 {
   "repository": "neilwong2012/codex-optimization",
   "sourcePath": "integrations/token-usage",
-  "sourceCommit": "ddfd6017b5d664804c5af7de4098339fa286ef16",
+  "sourceCommit": "b65ffb457f316a8fe6ddd6afdfd4614834348a04",
   "files": {
     ".usage/src/core.mjs": "a0b479eeccafbfdda4149fa60f95683034c272b3cb0c5e89f9ac7a83c12306c0",
     ".usage/src/contract.mjs": "9d6061a5eb5761b2403501f051b5e43e6d2f214e41e8840d4080d50e7992c471",
@@ -11,7 +11,7 @@
     ".usage/test/fixture.mjs": "15e736a32b81f189ad68157e7868b6cd083e2a6a7118aa01b88ac809f2669ba9",
     "tokens/index.html": "751cb9fd4c3452aefdf9d913ff4239fe3a7e982c8277014f6b7f0c3cab2e653f",
     "tokens/style.css": "1f8d6d06059d41a99d343b455b1e96d640c4e2a5cc97198c2c1fca12270ca290",
-    "tokens/app.js": "c0db527bf5e63a1ec004ca44b8bf60db5e91095f6117b992814b5fe76b40299d",
+    "tokens/app.js": "f9f7964cdcd64056aceaa8907a3760317f55889a2a100f99acf15cc3a1b6c6e6",
     ".github/workflows/token-usage-pages.yml": "af2058bb3bade0d04515729dcbdde60285c8f1ce30bf3f138fe52f5247da0c33",
     "package.json": "846a6f3af649c03ae5e5dccc1edd47e98bad8b299f27680d2354b93b3b007d0f",
     ".gitignore": "3a3bcf768c25d0483b1e4b81f5a2879def4f8160c994929ae3a997511dbd84ae"

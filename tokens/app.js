@@ -1,6 +1,6 @@
 const $ = id => document.getElementById(id);
 const number = n => n === null || n === undefined ? '—' : new Intl.NumberFormat('en-US').format(n);
-const short = n => n === null || n === undefined ? '—' : new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 2 }).format(n);
+const short = n => n === null || n === undefined ? '—' : new Intl.NumberFormat('zh-CN', { notation: 'compact', maximumFractionDigits: 2 }).format(n);
 const money = n => n === null || n === undefined ? '—' : '$' + new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
 let report, selected = 'all', range = '30', rows = [], showAll = false;
 function element(tag, text, className) { const e = document.createElement(tag); if (text !== undefined) e.textContent = text; if (className) e.className = className; return e; }
@@ -43,7 +43,7 @@ function drawChart() {
   const w = width / Math.max(rows.length, 1), barWidth = Math.max(w * .65, .4);
   rows.forEach((d, i) => {
     const g = svgNode('g', { class: 'bar', tabindex: '0', role: 'button', 'aria-label': `${d.date}: ${number(d.totalTokens)} Token, ${coverage(d)}` });
-    const desc = `${d.date} · ${number(d.totalTokens)} Token · ${money(d.estimatedCostUSD)} · 覆盖 ${coverage(d)}`;
+    const desc = `${d.date} · ${short(d.totalTokens)} Token（${number(d.totalTokens)}） · ${money(d.estimatedCostUSD)} · 覆盖 ${coverage(d)}`;
     g.append(svgNode('title', {}, desc));
     let y = top + height;
     for (const [value, color] of [[d.inputTokens, '#355e5d'], [d.cacheReadTokens === null ? null : d.cacheReadTokens + d.cacheCreationTokens, '#58b59e'], [d.outputTokens, '#bedbd1']]) {
@@ -56,7 +56,7 @@ function drawChart() {
     const every = Math.max(1, Math.ceil(rows.length / 6));
     if (i % every === 0 || i === rows.length - 1) svg.append(svgNode('text', { x: left + i * w + w / 2, y: 211, 'text-anchor': 'middle' }, d.date.slice(5)));
   });
-  host.append(svg); $('chart-hint').textContent = `${rows.length} DAYS`;
+  host.append(svg); $('chart-hint').textContent = `${rows.length} 天`;
 }
 function drawModels() {
   const list = $('model-list'); list.replaceChildren(); const models = new Map();
@@ -74,7 +74,11 @@ function drawTable() {
   for (const d of (showAll ? ds : ds.slice(0, 14))) {
     const tr = element('tr');
     const cache = d.cacheReadTokens === null ? null : d.cacheReadTokens + d.cacheCreationTokens;
-    for (const value of [d.date, number(d.inputTokens), number(cache), number(d.outputTokens), number(d.totalTokens), d.estimatedCostUSD === null ? '—' : money(d.estimatedCostUSD).slice(1)]) tr.append(element('td', value));
+    tr.append(element('td', d.date));
+    for (const value of [d.inputTokens, cache, d.outputTokens, d.totalTokens]) {
+      const cell = element('td', short(value)); cell.title = `${number(value)} Token`; tr.append(cell);
+    }
+    tr.append(element('td', d.estimatedCostUSD === null ? '—' : money(d.estimatedCostUSD).slice(1)));
     const cell = element('td'), tag = element('span', coverage(d) + (d.suspect ? ' 待核对' : d.pricingStatuses.includes('fallback') ? ' 回退估价' : ''), 'tag' + (d.coverage.complete ? '' : d.hasData ? ' warn' : ' muted'));
     cell.append(tag); tr.append(cell); $('daily-rows').append(tr);
   }
