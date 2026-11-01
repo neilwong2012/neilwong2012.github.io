@@ -1,7 +1,7 @@
 {
   "repository": "neilwong2012/codex-optimization",
   "sourcePath": "integrations/token-usage",
-  "sourceCommit": "15269bf8e23c78b1fdd7de7a48e539689a80e63b",
+  "sourceCommit": "ddfd6017b5d664804c5af7de4098339fa286ef16",
   "files": {
     ".usage/src/core.mjs": "a0b479eeccafbfdda4149fa60f95683034c272b3cb0c5e89f9ac7a83c12306c0",
     ".usage/src/contract.mjs": "9d6061a5eb5761b2403501f051b5e43e6d2f214e41e8840d4080d50e7992c471",
