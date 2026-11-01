@@ -1,1 +1,1 @@
-{"schemaVersion":1,"timezone":"Asia/Shanghai","devices":[]}
+{"devices":[{"activeFrom":"2026-11-01","agents":["codex"],"alias":"mac-01","deviceEpoch":"10353bd0-3605-4512-9d9c-190760cd2edb","deviceId":"c6bd3055-fb89-4a1c-9a38-0b564e633b6b","inactiveAfter":null,"sourceIndependence":"confirmed"}],"schemaVersion":1,"timezone":"Asia/Shanghai"}
