@@ -1,0 +1,16 @@
+{
+  "name": "token-usage-pages",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node --test .usage/test/*.test.mjs",
+    "build": "node .usage/scripts/build-site.mjs"
+  },
+  "dependencies": {
+    "ajv": "8.20.0"
+  }
+}

@@ -1,0 +1,54 @@
+name: Token usage Pages
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+  schedule:
+    - cron: '47 20 * * *' # 04:47 Asia/Shanghai
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: token-usage-pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - name: Build latest consistent snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            git fetch origin master
+            git checkout --detach origin/master
+            npm ci --ignore-scripts
+            npm run build
+            git fetch origin master
+            if [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/master)" ]; then
+              exit 0
+            fi
+          done
+          echo 'Source changed repeatedly; refusing an outdated deployment.' >&2
+          exit 1
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
